@@ -1,9 +1,13 @@
 {
   "name": "surge-syntax-highlighting",
   "displayName": "Surge Syntax Highlighting",
-  "description": "VS Code support for Surge (.sg) syntax with comprehensive Draft 5 language support, including directives, attributes, async/await, pattern matching, and advanced type system features.",
+  "description": "VS Code support for Surge (.sg) syntax with directives, attributes, async/await, pattern matching, and advanced type system features.",
   "version": "0.0.11",
-  "publisher": "surge",
+  "publisher": "VladimirKirdan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vovakirdan/surge-vscode-extension"
+  },
   "license": "MIT",
   "main": "./extension.js",
   "activationEvents": [

@@ -4,44 +4,34 @@
 
 ## Возможности
 
-- Полная подсветка синтаксиса: директивы, атрибуты, async/await, pattern matching и расширенные типы.
-- Диагностика через `surge diag --format json --stages sema --with-notes --suggest --preview --fullpath` с отображением ошибок, предупреждений и заметок в редакторе.
-- Quick Fix действия, если `surge` возвращает fixes.
-- Собственная палитра TextMate только для Surge, не влияющая на другие языки или активную тему.
-- Поддержка комментариев, строк, чисел и аннотаций (`@pure`, `@override`).
-- Анализ работает и для несохраненных/грязных файлов (используется временный файл).
+- Подсветка синтаксиса: директивы, атрибуты, async/await, pattern matching и расширенные типы.
+- Диагностика и заметки через `surge diag` с показом ошибок и предупреждений в редакторе.
+- Quick Fix действия, если `surge` возвращает исправления.
+- Собственная палитра TextMate только для Surge.
+- Корректное оформление комментариев, строк, чисел и аннотаций (`@pure`, `@override`).
+
+## Скриншоты
+
+### Подсветка синтаксиса:
+![Подсветка синтаксиса](images/screenshot-syntax.png)
+### Диагностика:
+![Диагностика](images/screenshot-diagnostics.png)
+### Quick Fix:
+![Quick Fix](images/screenshot-quick-fix.png)
+
+## Установка
+
+- Откройте `Extensions` (`Ctrl+Shift+X`), найдите "Surge Syntax Highlighting" и нажмите Install.
+- Или установите из терминала: `code --install-extension surge.surge-syntax-highlighting`.
 
 ## Требования
 
 - Для диагностики и Quick Fix нужен установленный `surge` CLI.
-- Если `surge` недоступен, расширение будет работать только как подсветка синтаксиса.
-
-## Установка
-
-1. Установите готовый `.vsix`:
-   - Через команду VS Code: `Extensions: Install from VSIX...`
-   - Или из терминала: `code --install-extension surge-syntax-highlighting-0.0.11.vsix`
-2. Либо соберите пакет самостоятельно:
-   - `npm install -g vsce`
-   - `vsce package`
-
-## Запуск из исходников
-
-Откройте репозиторий в VS Code и нажмите `F5`, чтобы открыть новое окно с активированным расширением.
+- Без `surge` расширение работает как подсветка синтаксиса.
 
 ## Настройка
 
-- `surge.analyzer.executablePath` — путь до исполняемого файла `surge`, используемого для диагностики. По умолчанию: `surge`.
-
-## Папки и файлы
-
-- `package.json` — метаданные расширения, список языков и правила подсветки цветов.
-- `extension.js` — интеграция с `surge diag` и Quick Fix действия.
-- `language-configuration.json` — конфигурация редактора для комментариев и пар скобок.
-- `syntaxes/surge.tmLanguage.json` — грамматика TextMate для языка Surge.
-- `icons/` — SVG-иконки языка.
-- `showcases/` — примеры кода Surge.
-- `test_syntax.sg` — тестовый файл для проверки подсветки.
+- `surge.analyzer.executablePath` — путь до `surge`, используемого для диагностики (по умолчанию `surge`).
 
 ## Лицензия
 
