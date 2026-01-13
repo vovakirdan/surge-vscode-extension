@@ -14,11 +14,14 @@
     "onStartupFinished"
   ],
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.82.0"
   },
   "categories": [
     "Programming Languages"
   ],
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
   "keywords": [
     "surge",
     "syntax",
@@ -42,6 +45,12 @@
         "language": "surge",
         "scopeName": "source.surge",
         "path": "./syntaxes/surge.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "surge.restartLanguageServer",
+        "title": "Surge: Restart Language Server"
       }
     ],
     "configurationDefaults": {
@@ -458,10 +467,20 @@
     "configuration": {
       "title": "Surge",
       "properties": {
-        "surge.analyzer.executablePath": {
+        "surge.serverPath": {
           "type": "string",
           "default": "surge",
-          "description": "Path to the surge executable used for semantic analysis and diagnostics."
+          "description": "Path to the Surge executable that provides `surge lsp`."
+        },
+        "surge.inlayHints.letTypes": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inlay type hints for `let` bindings without explicit annotations."
+        },
+        "surge.inlayHints.hideObvious": {
+          "type": "boolean",
+          "default": false,
+          "description": "Hide inlay type hints for obvious literal initializers."
         }
       }
     }

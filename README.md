@@ -1,12 +1,11 @@
 # Surge Syntax Highlighting for VS Code
 
-Расширение VS Code для языка Surge (`.sg`) с подсветкой синтаксиса, диагностикой и быстрыми исправлениями.
+Расширение VS Code для языка Surge (`.sg`) с подсветкой синтаксиса и LSP-функциями редактора.
 
 ## Возможности
 
 - Подсветка синтаксиса: директивы, атрибуты, async/await, pattern matching и расширенные типы.
-- Диагностика и заметки через `surge diag` с показом ошибок и предупреждений в редакторе.
-- Quick Fix действия, если `surge` возвращает исправления.
+- LSP-диагностика, hover, переход к определению, inlay hints для `let`-типов.
 - Собственная палитра TextMate только для Surge.
 - Корректное оформление комментариев, строк, чисел и аннотаций (`@pure`, `@override`).
 
@@ -14,10 +13,8 @@
 
 ### Подсветка синтаксиса:
 ![Подсветка синтаксиса](images/screenshot-syntax.png)
-### Диагностика:
+### Диагностика (LSP):
 ![Диагностика](images/screenshot-diagnostics.png)
-### Quick Fix:
-![Quick Fix](images/screenshot-quick-fix.png)
 
 ## Установка
 
@@ -26,12 +23,25 @@
 
 ## Требования
 
-- Для диагностики и Quick Fix нужен установленный `surge` CLI.
+- Для LSP нужен установленный `surge` CLI (команда `surge lsp`) в `PATH`.
 - Без `surge` расширение работает как подсветка синтаксиса.
+- При необходимости задайте `SURGE_STDLIB` в окружении VS Code.
 
 ## Настройка
 
-- `surge.analyzer.executablePath` — путь до `surge`, используемого для диагностики (по умолчанию `surge`).
+- `surge.serverPath` — путь до `surge`, используемого для `surge lsp` (по умолчанию `surge`).
+- `surge.inlayHints.letTypes` — показывать inlay подсказки типов для `let`.
+- `surge.inlayHints.hideObvious` — скрывать подсказки для очевидных литералов.
+
+## Команды
+
+- `Surge: Restart Language Server` — перезапустить LSP-сервер.
+
+## Локальный запуск/разработка
+
+1. `cd vscode-extension`
+2. `npm install`
+3. Откройте в VS Code и запустите `Run Extension` (или `code --extensionDevelopmentPath=/path/to/vscode-extension`).
 
 ## Лицензия
 
