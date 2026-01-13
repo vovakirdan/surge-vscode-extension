@@ -481,6 +481,16 @@
           "type": "boolean",
           "default": false,
           "description": "Hide inlay type hints for obvious literal initializers."
+        },
+        "surge.inlayHints.defaultInit": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inlay hints for implicit default initialization (`let x: T;` -> `= default::<T>();`)."
+        },
+        "surge.lsp.trace": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable verbose LSP logging for inlay hint snapshot/debug tracing."
         }
       }
     }
