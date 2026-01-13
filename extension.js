@@ -1,23 +1,13 @@
 const vscode = require('vscode');
 const { LanguageClient, State } = require('vscode-languageclient/node');
-
-const CONFIG_SECTION = 'surge';
-const SERVER_PATH_KEY = 'serverPath';
+const { EntrypointCodeLensProvider } = require('./codelens_entrypoint');
+const { registerRunBuildCommands, RUN_COMMAND, BUILD_COMMAND } = require('./commands_run_build');
+const { CONFIG_SECTION, SERVER_PATH_KEY, getSurgePath } = require('./surge_config');
 
 let client;
 let outputChannel;
 let statusBar;
 let notifiedMissing = false;
-
-function getServerPath() {
-    const config = vscode.workspace.getConfiguration(CONFIG_SECTION);
-    const configured = config.get(SERVER_PATH_KEY, 'surge');
-    if (typeof configured !== 'string') {
-        return 'surge';
-    }
-    const trimmed = configured.trim();
-    return trimmed.length > 0 ? trimmed : 'surge';
-}
 
 function updateStatus(state) {
     if (!statusBar) {
@@ -38,7 +28,7 @@ function updateStatus(state) {
 }
 
 async function startClient(context) {
-    const serverPath = getServerPath();
+    const serverPath = getSurgePath();
     const serverOptions = {
         command: serverPath,
         args: ['lsp'],
@@ -129,6 +119,28 @@ function activate(context) {
 
     context.subscriptions.push(
         vscode.commands.registerCommand('surge.restartLanguageServer', () => restartClient(context))
+    );
+
+    registerRunBuildCommands(context);
+
+    const entrypointProvider = new EntrypointCodeLensProvider(RUN_COMMAND, BUILD_COMMAND);
+    context.subscriptions.push(
+        vscode.languages.registerCodeLensProvider({ language: 'surge', scheme: 'file' }, entrypointProvider)
+    );
+    context.subscriptions.push(
+        vscode.workspace.onDidChangeTextDocument((event) => {
+            const doc = event.document;
+            if (doc.languageId === 'surge' && doc.uri.scheme === 'file') {
+                entrypointProvider.refresh();
+            }
+        })
+    );
+    context.subscriptions.push(
+        vscode.workspace.onDidOpenTextDocument((doc) => {
+            if (doc.languageId === 'surge' && doc.uri.scheme === 'file') {
+                entrypointProvider.refresh();
+            }
+        })
     );
 
     context.subscriptions.push(
