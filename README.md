@@ -29,13 +29,24 @@
 
 ## Настройка
 
+- `surge.lsp.enabled` — включить/выключить LSP (по умолчанию `true`).
 - `surge.serverPath` — путь до `surge`, используемого для `surge lsp` (по умолчанию `surge`).
 - `surge.inlayHints.letTypes` — показывать inlay подсказки типов для `let`.
 - `surge.inlayHints.hideObvious` — скрывать подсказки для очевидных литералов.
+- `surge.inlayHints.defaultInit` — показывать подсказки для неявного `default::<T>()`.
+- `surge.lsp.trace` — включить подробный LSP-лог (диагностика/снапшоты).
+- `surge.run.backend` — backend для `surge run` (по умолчанию `vm`).
+- `surge.build.backend` — backend для `surge build` (по умолчанию `llvm`).
 
 ## Команды
 
+- `Surge: Start Language Server` — запустить LSP-сервер.
+- `Surge: Stop Language Server` — остановить LSP-сервер.
 - `Surge: Restart Language Server` — перезапустить LSP-сервер.
+- `Surge: Run Entrypoint` — выполнить текущий файл с `@entrypoint`.
+- `Surge: Build Entrypoint` — собрать текущий файл с `@entrypoint`.
+
+Статусбар “Surge LSP” открывает меню Start/Stop/Restart.
 
 ## Локальный запуск/разработка
 

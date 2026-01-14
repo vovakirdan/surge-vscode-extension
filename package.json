@@ -2,7 +2,7 @@
   "name": "surge-syntax-highlighting",
   "displayName": "Surge — Programming Language",
   "description": "VS Code support for Surge (.sg) syntax with directives, attributes, async/await, pattern matching, and advanced type system features.",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "publisher": "VladimirKirdan",
   "repository": {
     "type": "git",
@@ -50,6 +50,18 @@
     "commands": [
       {
         "command": "surge.restartLanguageServer",
+        "title": "Surge: Restart Language Server"
+      },
+      {
+        "command": "surge.lsp.start",
+        "title": "Surge: Start Language Server"
+      },
+      {
+        "command": "surge.lsp.stop",
+        "title": "Surge: Stop Language Server"
+      },
+      {
+        "command": "surge.lsp.restart",
         "title": "Surge: Restart Language Server"
       },
       {
@@ -475,6 +487,11 @@
     "configuration": {
       "title": "Surge",
       "properties": {
+        "surge.lsp.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the Surge language server."
+        },
         "surge.serverPath": {
           "type": "string",
           "default": "surge",
