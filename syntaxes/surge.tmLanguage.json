@@ -214,7 +214,7 @@
       "patterns": [
         {
           "name": "keyword.control.flow.surge",
-          "match": "\\b(if|else|while|for|in|return|break|continue|finally)\\b"
+          "match": "\\b(if|else|while|for|in|return|ret|break|continue|finally)\\b"
         },
         {
           "name": "keyword.other.compare.surge",

@@ -78,6 +78,16 @@ fn process_value(value: Option<int>) -> string {
     }
 }
 
+fn block_value_with_ret(flag: bool) -> int {
+    let value = {
+        if flag {
+            ret 1;
+        }
+        ret 2;
+    };
+    return value;
+}
+
 // Ownership and references
 fn work_with_refs(data: &Data, mut_data: &mut Data, owned: own Data) {
     let borrowed: &Data = &owned;
