@@ -198,7 +198,7 @@
         },
         {
           "name": "storage.type.attribute.concurrency.surge",
-          "match": "@(guarded_by|requires_lock|acquires_lock|releases_lock|waits_on|send|nosend|nonblocking|failfast|atomic)\\b"
+          "match": "@(guarded_by|requires_lock|acquires_lock|releases_lock|waits_on|send|nosend|nonblocking|failfast|atomic|shard_movable|shard_pinned)\\b"
         },
         {
           "name": "storage.type.attribute.statement.surge",
@@ -249,6 +249,19 @@
           "match": "\\basync\\b"
         },
         {
+          "match": "\\b(spawn)\\s+(on)\\b",
+          "captures": {
+            "1": { "name": "keyword.other.concurrency.surge" },
+            "2": { "name": "keyword.other.concurrency.surge" }
+          }
+        },
+        {
+          "match": "\\b(on)\\b(?=\\s+[^=;\\n{}]+\\s*\\{)",
+          "captures": {
+            "1": { "name": "keyword.other.concurrency.surge" }
+          }
+        },
+        {
           "name": "keyword.other.concurrency.surge",
           "match": "\\b(task|spawn|signal)\\b"
         },
@@ -267,6 +280,10 @@
         {
           "name": "keyword.other.ownership.surge",
           "match": "\\bown\\b"
+        },
+        {
+          "name": "keyword.other.ownership.surge",
+          "match": "\\bfar\\b"
         },
         {
           "name": "storage.modifier.surge",
@@ -325,21 +342,23 @@
     "typeAnnotations": {
       "patterns": [
         {
-          "match": "(:)(\\s*)(own\\s+)?(&mut\\s*|&\\s*|\\*\\s*)?([A-Za-z_][A-Za-z0-9_]*)",
+          "match": "(:)(\\s*)(own\\s+)?(&mut\\s*|&\\s*|\\*\\s*)?(far\\s+)?([A-Za-z_][A-Za-z0-9_]*)",
           "captures": {
             "1": { "name": "punctuation.separator.type.surge" },
             "3": { "name": "storage.modifier.surge" },
             "4": { "name": "storage.type.reference.surge" },
-            "5": { "name": "entity.name.type.surge" }
+            "5": { "name": "keyword.other.ownership.surge" },
+            "6": { "name": "entity.name.type.surge" }
           }
         },
         {
-          "match": "(->)(\\s*)(own\\s+)?(&mut\\s*|&\\s*|\\*\\s*)?([A-Za-z_][A-Za-z0-9_]*)",
+          "match": "(->)(\\s*)(own\\s+)?(&mut\\s*|&\\s*|\\*\\s*)?(far\\s+)?([A-Za-z_][A-Za-z0-9_]*)",
           "captures": {
             "1": { "name": "punctuation.separator.type.result.surge" },
             "3": { "name": "storage.modifier.surge" },
             "4": { "name": "storage.type.reference.surge" },
-            "5": { "name": "entity.name.type.surge" }
+            "5": { "name": "keyword.other.ownership.surge" },
+            "6": { "name": "entity.name.type.surge" }
           }
         }
       ]
@@ -433,6 +452,10 @@
         {
           "name": "keyword.other.declaration.surge",
           "match": "\\bconst\\b"
+        },
+        {
+          "name": "keyword.other.ownership.surge",
+          "match": "\\bfar\\b"
         },
         {
           "name": "variable.other.parameter.surge",
@@ -575,6 +598,16 @@
         { "include": "#strings" },
         { "include": "#numbers" },
         { "include": "#booleanLiterals" },
+        { "include": "#attributes" },
+        { "include": "#compareExpression" },
+        { "include": "#asyncBlock" },
+        { "include": "#forLoop" },
+        { "include": "#declarations" },
+        { "include": "#keywords" },
+        { "include": "#primitiveTypes" },
+        { "include": "#typeConstructors" },
+        { "include": "#typeAnnotations" },
+        { "include": "#functionCall" },
         { "include": "#patterns" },
         { "include": "#operators" },
         { "include": "#punctuation" }

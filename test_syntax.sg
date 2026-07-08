@@ -208,3 +208,52 @@ fn gpu_computation(data: float[]) -> float[] {
     // GPU-specific implementation
     return data;
 }
+
+// Epic 11 crossing surface
+@shard_movable
+type RemoteJob = {
+    id: uint64,
+    count: int,
+    ok: bool
+}
+
+@shard_pinned
+type RemoteSocket = {
+    fd: int
+}
+
+fn keep_remote_task(task: far Task<int>) -> far Task<int> {
+    return task;
+}
+
+fn run_on_pool(job: own RemoteJob) -> TaskResult<int> {
+    return on pool {
+        let doubled = job.count * 2;
+        ret doubled;
+    };
+}
+
+fn spawn_on_pool(job: own RemoteJob) -> far Task<int> {
+    return spawn on pool {
+        let result = job.count + 1;
+        ret result;
+    };
+}
+
+fn contextual_on_identifier() -> int {
+    let on = 1;
+    return on;
+}
+
+fn nested_compare_regression(value: Option<int>) -> int {
+    compare value {
+        Some(x) => {
+            let adjusted = x + 1;
+            compare Some(adjusted) {
+                Some(y) => return y,
+                finally => return 0
+            }
+        },
+        finally => return 0
+    }
+}
